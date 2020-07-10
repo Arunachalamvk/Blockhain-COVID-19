@@ -1,0 +1,76 @@
+namespace org.hyperledger_composer.scms
+enum Ailments {
+ o Bloodpressure
+ o Cardio
+ o pneumonia
+ o TB
+ o Cancer
+ o Diabetes
+}
+enum Symptoms {
+ o Drycough
+ o Fever
+ o Headache
+}
+enum Location{
+o Chennai
+o Coimbatore
+o Salem
+o Kanchipuram
+o Theni
+o Karur
+o Tiruppur
+o Nilgris
+o Dharmapuri
+o Villupuram
+}
+enum Status{
+o Testing
+o Negative
+o Positive
+}
+enum Specialization {
+o Heartsurgeon
+o Pulmonology
+o Diabetology
+o Ent
+o Pediatric
+}
+enum Remarks {
+o Testing
+o Hospitalized
+o Selfquarantined
+}
+
+asset Patient identified by patientId {
+ o String patientId
+ o String name
+ o Integer contactno
+ o Location location
+ o Symptoms[] symptoms
+ o Ailments[] ailments
+ o String link
+ --> Participant hospital
+ --> Participant doctor
+ o Status status
+ o Remarks remarks default="Testing"
+ o DateTime date
+ o Integer day default=0
+}
+participant Doctor identified by doctorId {
+ o String doctorId
+ o String Name
+ o Specialization specialization
+ -->Participant hospital
+}
+participant Hospital identified by approvalId {
+ o String approvalId
+ o String hospitalName
+ o Location location
+}
+transaction MoveProduct {
+ --> Patient patient
+ o Status status
+ o Remarks remarks
+ o DateTime date
+}
